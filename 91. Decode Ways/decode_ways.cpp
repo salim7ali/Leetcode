@@ -23,8 +23,10 @@ public:
             count += 1;
             return;
         }
-        countDecodings(mainStr, i+1, count);
-        
+        string singleChar(1, mainStr.at(i)); 
+        if(isValidNum(singleChar)){
+            countDecodings(mainStr, i+1, count);
+        }        
         if(isValidNum(mainStr.substr(i, i+1)) && i!=mainStr.length()-1){
             countDecodings(mainStr, i+2, count);
         }

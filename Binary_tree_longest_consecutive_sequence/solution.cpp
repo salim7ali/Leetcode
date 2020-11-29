@@ -2,27 +2,24 @@
 // https://www.geeksforgeeks.org/longest-consecutive-sequence-binary-tree/
 #include<bits/stdc++.h>
 #include<iostream>
+using namespace std;
 
-void longSequence(Node *ptr,int &max, int curMax, int prevVal){
-    // exit case
-    if(ptr->left == NULL && ptr->right == NULL)
+void longestConsecutiveSeq(Node *ptr, int prev_val, int curr_seq_len, &max_seq_len){
+    if(ptr==NULL)
         return;
-
-    if(ptr->data == prevVal +1)
-        curMax += 1;
+    if(ptr->data == prev_val+1)
+        curr_seq_len += 1
     else
-        curMax = 1;
+        curr_seq_len = 1;
+    
+    if(curr_seq_len > max_seq_len)
+        max_seq_len = curr_seq_len;
 
-    if(curMax > max)
-        max = curMax;
-
-    if(ptr->left != NULL)
-        longSequence(ptr->left, max, curMax, ptr->data);
-    if(ptr->right != NULL)
-        longSequence(ptr->right, max, curMax, ptr->data);
+    longestConsecutiveSeq(ptr->left, ptr->data, curr_seq_len, max_seq_len);
+    longestConsecutiveSeq(ptr->right, ptr->data, curr_seq_len, max_seq_len);
 }
 int main(){
-    int max = INT_MIN;
+    int max_seq_len = 0;
     
-    longSequence(ptr, max, 0, (ptr->data)-1);
+    longestConsecutiveSeq(head, head->data, 0, max_seq_len);// (*head).data
 }
