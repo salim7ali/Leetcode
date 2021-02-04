@@ -4,6 +4,9 @@ using namespace std;
 class Solution {
 public:
     vector<int> maxSlidingWindow(vector<int>& nums, int k) {
+        ios_base::sync_with_stdio(false);
+        cin.tie(NULL);
+        
         vector<int> result;
         int currMax = nums[0];
         multiset<int> MS;
@@ -15,10 +18,6 @@ public:
         }
         result.push_back(*(MS.rbegin()));
 
-        for(auto ele: MS){
-            cout<<ele<<" ";
-        }cout<<"\n";
-
         for(int i=k; i<nums.size(); i++){
             int newNum = nums[i];
             int oldNum = nums[i-k];
@@ -26,7 +25,6 @@ public:
             MS.erase(MS.find(oldNum));
             MS.insert(newNum);
             result.push_back(*(MS.rbegin()));
-
         }
         return result;
     }
