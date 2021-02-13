@@ -18,6 +18,9 @@ public:
             cout<<"(1)\n";
             this->maxH.push(num);
             this->maxCount += 1;            
+        }else if(num>this->maxH.top() && this->minH.empty()){
+                this->minH.push(num);
+                this->minCount += 1;            
         }else if(num< (this->maxH.top())){// wants to go left into maxHeap
             if(this->maxCount == (this->minCount)+1){
                 cout<<"(2)\n";
@@ -79,28 +82,28 @@ public:
 
 int main(){
     MedianFinder obj;
-    // obj.addNum(1);
-    // obj.addNum(1);
-    // cout<<obj.findMedian()<<"\n";
-    // obj.addNum(1);
-    // cout<<obj.findMedian();
-
-    obj.addNum(9);
-    cout<<obj.findMedian()<<"=median\n";
+    obj.addNum(1);
     obj.addNum(2);
     cout<<obj.findMedian()<<"=median\n";
     obj.addNum(3);
     cout<<obj.findMedian()<<"=median\n";
-    obj.addNum(6);
-    cout<<obj.findMedian()<<"=median\n";
-    obj.addNum(7);
-    cout<<obj.findMedian()<<"=median\n";
-    obj.addNum(8);
-    cout<<obj.findMedian()<<"=median\n";
-    obj.addNum(1);
-    cout<<obj.findMedian()<<"=median\n";
-    obj.addNum(5);
-    cout<<obj.findMedian()<<"=median\n";
-    obj.addNum(4);
-    cout<<obj.findMedian()<<"=median\n";
+
+    // obj.addNum(9);
+    // cout<<obj.findMedian()<<"=median\n";
+    // obj.addNum(2);
+    // cout<<obj.findMedian()<<"=median\n";
+    // obj.addNum(3);
+    // cout<<obj.findMedian()<<"=median\n";
+    // obj.addNum(6);
+    // cout<<obj.findMedian()<<"=median\n";
+    // obj.addNum(7);
+    // cout<<obj.findMedian()<<"=median\n";
+    // obj.addNum(8);
+    // cout<<obj.findMedian()<<"=median\n";
+    // obj.addNum(1);
+    // cout<<obj.findMedian()<<"=median\n";
+    // obj.addNum(5);
+    // cout<<obj.findMedian()<<"=median\n";
+    // obj.addNum(4);
+    // cout<<obj.findMedian()<<"=median\n";
 }

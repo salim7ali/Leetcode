@@ -1,0 +1,18 @@
+dNum(9);
+    cout<<obj.findMedian()<<"=median\n";
+    obj.addNum(2);
+    cout<<obj.findMedian()<<"=median\n";
+    obj.addNum(3);
+    cout<<obj.findMedian()<<"=median\n";
+    obj.addNum(6);
+    cout<<obj.findMedian()<<"=median\n";
+    obj.addNum(7);
+    cout<<obj.findMedian()<<"=median\n";
+    obj.addNum(8);
+    cout<<obj.findMedian()<<"=median\n";
+    obj.addNum(1);
+    cout<<obj.findMedian()<<"=median\n";
+    obj.addNum(5);
+    cout<<obj.findMedian()<<"=median\n";
+    obj.addNum(4);
+    cout<<obj.findMedian()<<"=median\n";
