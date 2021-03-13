@@ -15,6 +15,9 @@ public:
     }
 
     int countPrimeSetBits(int L, int R) {
+        ios_base::sync_with_stdio(false);
+        cin.tie(NULL);
+        
         int resCount = 0;
 
         for(int i=L; i<=R; i++){
