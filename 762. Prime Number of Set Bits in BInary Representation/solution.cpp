@@ -15,10 +15,17 @@ public:
     }
 
     int countPrimeSetBits(int L, int R) {
-        
+        int resCount = 0;
+
+        for(int i=L; i<=R; i++){
+            if(hasPrimeSetBits(i))
+                resCount += 1; 
+        }
+        return resCount;
     }
 };
 
 int main(){
-    
+    Solution obj;
+    cout<<obj.countPrimeSetBits(842, 888);
 }
