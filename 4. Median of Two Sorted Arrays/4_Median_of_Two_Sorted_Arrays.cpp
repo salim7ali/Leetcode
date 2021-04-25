@@ -1,4 +1,7 @@
 // https://leetcode.com/problems/median-of-two-sorted-arrays/
+#include<bits/stdc++.h>
+using namespace std;
+
 class Solution {
 public:
     // int findMid(){
@@ -18,13 +21,14 @@ public:
         int resultArrSize= nums1.size()+nums2.size();
         int halfArrSize=resultArrSize/2;
         int l1, l2, r1, r2;
-        for(r1=0; r1<nums1.size(); r1++){
-            l1=r1-1;
-            l2=halfArrSize-r1;
-            r2=l2+1;
+        for(int pivot=0; pivot<nums1.size(); pivot++){
+            l1=nums1[pivot-1];
+            r1=nums1[pivot];
+            l2=nums2[halfArrSize-pivot];
+            r2=nums2[halfArrSize-pivot+1];
 
             if(l2<r1 && l1<r2){
-                return avg(max(l1, l2), max(r1, r2));
+                return (max(l1, l2) + max(r1, r2))/2;
             }
             // }else if(l2>=r1){
                 
