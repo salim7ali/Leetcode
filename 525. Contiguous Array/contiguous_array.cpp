@@ -2,6 +2,10 @@
 
 class Solution {
 public:
+    Solution(){
+        ios_base::sync_with_stdio(false);
+        cin.tie(NULL);
+    }
     int findMaxLength(vector<int>& nums) {
         vector<int> prefixSum(nums.size(), 0);
         unordered_map<int, vector<int>> hash_map;
