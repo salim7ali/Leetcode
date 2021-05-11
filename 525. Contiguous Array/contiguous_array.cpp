@@ -5,6 +5,7 @@ public:
     int findMaxLength(vector<int>& nums) {
         vector<int> prefixSum(nums.size(), 0);
         unordered_map<int, vector<int>> hash_map;
+        hash_map[0].push_back(-1);
 
         int currentSum=0;
         // forward pass
@@ -25,6 +26,8 @@ public:
             if(hash_map[prefixSum[i]].size() == 1)
                  hash_map[prefixSum[i]].push_back(i);
         }
+        if(hash_map[0].size()==1)
+            hash_map[0].push_back(-1);
 
         int max_subarray = 0;
         for(auto ele: hash_map){
