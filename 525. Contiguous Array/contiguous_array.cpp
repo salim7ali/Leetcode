@@ -28,8 +28,8 @@ public:
 
         int max_subarray = 0;
         for(auto ele: hash_map){
-            if(ele[1] - ele[0] > max_subarray)
-                max_subarray = ele[1] - ele[0];
+            if(ele.second[1] - ele.second[0] > max_subarray)
+                max_subarray = ele.second[1] - ele.second[0];
         }
 
         return max_subarray;
