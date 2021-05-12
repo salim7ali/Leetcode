@@ -20,23 +20,17 @@ public:
                 currentSum += 1;
             prefixSum[i] = currentSum;
 
-            if( hash_map.find(prefixSum[i]) == hash_map.end()) // first encounter of prefixSum[i]
-                hash_map[prefixSum[i]].push_back(i);
-            // else if(hash_map[prefixSum[i]].size() == 1) // second encounter of prefixSum[i]
+            hash_map[prefixSum[i]].push_back(i);
         }
 
-        // backward pass
-        for(int i=nums.size()-1; i>=0; i--){
-            if(hash_map[prefixSum[i]].size() == 1)
-                 hash_map[prefixSum[i]].push_back(i);
-        }
         if(hash_map[0].size()==1)
             hash_map[0].push_back(-1);
 
         int max_subarray = 0;
         for(auto ele: hash_map){
-            if(ele.second[1] - ele.second[0] > max_subarray)
-                max_subarray = ele.second[1] - ele.second[0];
+            int lastIndexOfKey = ele.second.size()-1;
+            if(ele.second[lastIndexOfKey] - ele.second[0] > max_subarray)
+                max_subarray = ele.second[lastIndexOfKey] - ele.second[0];
         }
 
         return max_subarray;
