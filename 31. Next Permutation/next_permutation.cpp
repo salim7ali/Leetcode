@@ -12,6 +12,11 @@ public:
             if(nums[peak_index]>nums[peak_index-1])
                 break;
         }
+        // decreasing order input
+        if(peak_index==0){
+            sort(nums.begin(), nums.end());
+            return;
+        }
 
         // finding min peak
         int min_peak_val =nums[peak_index];
@@ -27,3 +32,23 @@ public:
         sort(nums.begin()+peak_index, nums.end());
     }
 };
+
+void disp(vector<int> nums){
+    for(int i=0; i<nums.size(); i++){
+        cout<<nums[i]<<" ";
+    }cout<<"\n";
+}
+int main(){
+    Solution obj;
+    vector<int> nums = {5, 4, 3, 2, 1};
+
+    obj.nextPermutation(nums);
+    disp(nums);
+    obj.nextPermutation(nums);
+    disp(nums);
+    obj.nextPermutation(nums);
+    disp(nums);
+    obj.nextPermutation(nums);
+    disp(nums);
+    
+}
