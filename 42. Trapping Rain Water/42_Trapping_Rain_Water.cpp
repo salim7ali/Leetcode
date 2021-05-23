@@ -17,24 +17,24 @@ public:
     vector<pair<int, int>> gen_peak_list(bool isLeft, vector<int> &height){
         vector<pair<int, int>> peak_list(height.size());
 
-        pair<int, int> curr_peak ={INT_MIN, 0};
+        pair<int, int> curr_peak ={INT_MIN, -1};
         if(isLeft){
             for(int i=0; i<height.size(); i++){
+                peak_list[i].first = curr_peak.first;
+                peak_list[i].second = curr_peak.second;
                 if(height[i]>curr_peak.first){
                     curr_peak.first = height[i];
                     curr_peak.second = i;
                 }
-                peak_list[i].second = curr_peak.second;
-                peak_list[i].first = curr_peak.first;
             }
         }else{
             for(int i=height.size()-1; i>=0; i--){
+                peak_list[i].second = curr_peak.second;
+                peak_list[i].first = curr_peak.first;
                 if(height[i]>curr_peak.first){
                     curr_peak.first = height[i];
                     curr_peak.second = i;
                 }
-                peak_list[i].second = curr_peak.second;
-                peak_list[i].first = curr_peak.first;
             }
         }
         return peak_list;
@@ -45,44 +45,22 @@ public:
         this->left_to_right_inc_peaks = gen_peak_list(true, height);
         this->right_to_left_inc_peaks = gen_peak_list(false, height);
 
-        multiset<pair<int, int>> multi_set;
-        for(int i=0; i<height.size(); i++){
-            multi_set.insert({height[i], i});
+        display(left_to_right_inc_peaks);
+        display(right_to_left_inc_peaks);
+        
+        int total_water_blocks = 0;
+        for(int i=1; i<height.size()-1; i++){
+            int water_height = min(left_to_right_inc_peaks[i-1].first, right_to_left_inc_peaks[i+1].second);
+            total_water_blocks += (water_height-height[i]);
         }
-
-        while(multi_set.empty()==false){
-            int curr_low_height = (*(multi_set.begin())).first;
-            int curr_low_index = (*(multi_set.begin())).second;
-            multi_set.erase(multi_set.begin());
-
-            int curr_height = curr_low_height;
-            // increasing height until left or right peak doesn't exist
-            while(curr_height>=(left_to_right_inc_peaks[curr_low_index-1]).first  && 
-            curr_height>=(right_to_left_inc_peaks[curr_low_index+1]).first){
-                curr_height += 1;
-            }
-
-            water_level_list.resize(height.size());
-            // left side
-            for(int i=curr_low_index; i!=(left_to_right_inc_peaks[curr_low_index-1]).second; i--){
-                water_level_list[i] = curr_height-curr_low_height;    
-            }
-            // right side
-            for(int i=curr_low_index; i!=(right_to_left_inc_peaks[curr_low_index+1]).second; i--){
-                water_level_list[i] = curr_height-curr_low_height;    
-            }
-        }
-
-
-        int result_sum = 0;
-        for(int i=0; i<water_level_list.size(); i++)
-            result_sum += water_level_list[i];
-        return result_sum;
+        
+        return total_water_blocks;
     }
 };
 
 int main(){
     vector<int> test_vec = {7, 1, 4, 2, 0, 3, 2, 5, 0};
+    // vector<int> test_vec = {1,2,4,1,2,6};
     
     Solution obj;
     cout<<obj.trap(test_vec)<<"\n";
