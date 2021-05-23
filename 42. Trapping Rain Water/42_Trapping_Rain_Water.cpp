@@ -6,7 +6,6 @@ class Solution {
     // <height, index>
     vector<int> left_to_right_inc_peaks;
     vector<int> right_to_left_inc_peaks;
-    vector<int> water_level_list;
 public:
     void display(vector<int> vec){
         for(int i=0; i<vec.size(); i++){
@@ -36,14 +35,16 @@ public:
 
     int trap(vector<int>& height) {
 
-        this->left_to_right_inc_peaks = gen_peak_list(true, height);
-        this->right_to_left_inc_peaks = gen_peak_list(false, height);
+        left_to_right_inc_peaks = gen_peak_list(true, height);
+        right_to_left_inc_peaks = gen_peak_list(false, height);
 
-        display(left_to_right_inc_peaks);
-        display(right_to_left_inc_peaks);
+        // display(left_to_right_inc_peaks);
+        // display(right_to_left_inc_peaks);
         
         int total_water_blocks = 0;
-        for(int i=1; i<height.size()-1; i++){
+        // (int) is required as edge case exists when height vector is empty. As height.size() is unsingned long,
+        //  it returns 18446744073709551615 when height.size()-1 is used on empty vector due to underflow.
+        for(int i=1; i<(int)height.size()-1; i++){
             int curr_water_height = min(left_to_right_inc_peaks[i], right_to_left_inc_peaks[i]);
 
             if(curr_water_height-height[i] > 0)
@@ -55,9 +56,16 @@ public:
 };
 
 int main(){
-    vector<int> test_vec = {7, 1, 4, 2, 0, 3, 2, 5, 0};
-    // vector<int> test_vec = {1,2,4,1,2,6};
-    
-    Solution obj;
-    cout<<obj.trap(test_vec)<<"\n";
+    vector<int> test_vec1 = {7, 1, 4, 2, 0, 3, 2, 5, 0};
+    Solution obj1;
+    cout<<obj1.trap(test_vec1)<<"\n";
+
+    vector<int> test_vec2 = {1,2,4,1,2,6};
+    Solution obj2;
+    cout<<obj2.trap(test_vec2)<<"\n";
+
+    vector<int> test_vec3 = {};
+    Solution obj3;
+    cout<<obj3.trap(test_vec3)<<"\n";
+
 }
