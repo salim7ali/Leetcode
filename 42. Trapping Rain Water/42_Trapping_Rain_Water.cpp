@@ -7,11 +7,11 @@ class Solution {
     vector<int> left_to_right_inc_peaks;
     vector<int> right_to_left_inc_peaks;
 public:
-    void display(vector<int> vec){
-        for(int i=0; i<vec.size(); i++){
-            cout<<vec[i]<<" ";
-        }cout<<"\n";
-    }
+    // void display(vector<int> vec){
+    //     for(int i=0; i<vec.size(); i++){
+    //         cout<<vec[i]<<" ";
+    //     }cout<<"\n";
+    // }
 
     int trap(vector<int>& height) {
 //         left peaks
