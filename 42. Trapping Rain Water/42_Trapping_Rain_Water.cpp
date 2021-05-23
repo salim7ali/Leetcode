@@ -50,8 +50,10 @@ public:
         
         int total_water_blocks = 0;
         for(int i=1; i<height.size()-1; i++){
-            int water_height = min(left_to_right_inc_peaks[i-1].first, right_to_left_inc_peaks[i+1].second);
-            total_water_blocks += (water_height-height[i]);
+            int curr_water_height = min(left_to_right_inc_peaks[i].first, right_to_left_inc_peaks[i].first);
+
+            if(curr_water_height-height[i] > 0)
+                total_water_blocks += (curr_water_height-height[i]);
         }
         
         return total_water_blocks;
