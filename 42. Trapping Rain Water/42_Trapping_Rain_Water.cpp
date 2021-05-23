@@ -13,30 +13,24 @@ public:
         }cout<<"\n";
     }
 
-    vector<int> gen_peak_list(bool isLeft, vector<int> &height){
-        vector<int> peak_list(height.size());
-
-        int curr_peak = INT_MIN;
-        if(isLeft){
-            for(int i=0; i<height.size(); i++){
-                peak_list[i] = curr_peak;
-                if(height[i]>curr_peak)
-                    curr_peak = height[i];
-            }
-        }else{
-            for(int i=height.size()-1; i>=0; i--){
-                peak_list[i] = curr_peak;
-                if(height[i]>curr_peak)
-                    curr_peak = height[i];
-            }
-        }
-        return peak_list;
-    }
-
     int trap(vector<int>& height) {
-
-        left_to_right_inc_peaks = gen_peak_list(true, height);
-        right_to_left_inc_peaks = gen_peak_list(false, height);
+//         left peaks
+        int curr_peak = INT_MIN;
+        left_to_right_inc_peaks.resize(height.size());
+        for(int i=0; i<height.size(); i++){
+            left_to_right_inc_peaks[i] = curr_peak;
+            if(height[i]>curr_peak)
+                curr_peak = height[i];
+        }
+        
+//         right peaks
+        curr_peak = INT_MIN;
+        right_to_left_inc_peaks.resize(height.size());
+        for(int i=(int)height.size()-1; i>=0; i--){
+            right_to_left_inc_peaks[i] = curr_peak;
+            if(height[i]>curr_peak)
+                curr_peak = height[i];
+        }
 
         // display(left_to_right_inc_peaks);
         // display(right_to_left_inc_peaks);
