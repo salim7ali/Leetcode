@@ -4,37 +4,31 @@ using namespace std;
 
 class Solution {
     // <height, index>
-    vector<pair<int, int>> left_to_right_inc_peaks;
-    vector<pair<int, int>> right_to_left_inc_peaks;
+    vector<int> left_to_right_inc_peaks;
+    vector<int> right_to_left_inc_peaks;
     vector<int> water_level_list;
 public:
-    void display(vector<pair<int, int>> vec){
+    void display(vector<int> vec){
         for(int i=0; i<vec.size(); i++){
-            cout<<"("<<vec[i].first<<","<<vec[i].second<<") ";
+            cout<<vec[i]<<" ";
         }cout<<"\n";
     }
 
-    vector<pair<int, int>> gen_peak_list(bool isLeft, vector<int> &height){
-        vector<pair<int, int>> peak_list(height.size());
+    vector<int> gen_peak_list(bool isLeft, vector<int> &height){
+        vector<int> peak_list(height.size());
 
-        pair<int, int> curr_peak ={INT_MIN, -1};
+        int curr_peak = INT_MIN;
         if(isLeft){
             for(int i=0; i<height.size(); i++){
-                peak_list[i].first = curr_peak.first;
-                peak_list[i].second = curr_peak.second;
-                if(height[i]>curr_peak.first){
-                    curr_peak.first = height[i];
-                    curr_peak.second = i;
-                }
+                peak_list[i] = curr_peak;
+                if(height[i]>curr_peak)
+                    curr_peak = height[i];
             }
         }else{
             for(int i=height.size()-1; i>=0; i--){
-                peak_list[i].second = curr_peak.second;
-                peak_list[i].first = curr_peak.first;
-                if(height[i]>curr_peak.first){
-                    curr_peak.first = height[i];
-                    curr_peak.second = i;
-                }
+                peak_list[i] = curr_peak;
+                if(height[i]>curr_peak)
+                    curr_peak = height[i];
             }
         }
         return peak_list;
@@ -50,7 +44,7 @@ public:
         
         int total_water_blocks = 0;
         for(int i=1; i<height.size()-1; i++){
-            int curr_water_height = min(left_to_right_inc_peaks[i].first, right_to_left_inc_peaks[i].first);
+            int curr_water_height = min(left_to_right_inc_peaks[i], right_to_left_inc_peaks[i]);
 
             if(curr_water_height-height[i] > 0)
                 total_water_blocks += (curr_water_height-height[i]);
