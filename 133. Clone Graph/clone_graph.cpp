@@ -28,9 +28,13 @@ public:
             return NULL;
         
         if(visited.find(node) == visited.end()){
-            Node* copy_node = (Node*)malloc(sizeof(Node*));
-            copy_node->val = node->val;
+            Node* copy_node = new Node(node->val);
             visited[node] = copy_node;
+            
+            // Node* copy_node = (Node*)malloc(sizeof(Node));
+            // copy_node->val = node->val;
+            // visited[node] = copy_node;
+
 
             for(auto neighbour: node->neighbors){
                 visited[node]->neighbors.push_back(dfs_return_clone_of_node(neighbour, visited));
