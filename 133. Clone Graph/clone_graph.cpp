@@ -1,3 +1,4 @@
+// https://leetcode.com/problems/clone-graph/
 #include<bits/stdc++.h>
 using namespace std;
 
@@ -20,25 +21,29 @@ public:
     }
 };
 
-
 class Solution {
 public:
-    void dfs(Node *node, Node *result, map<int, bool> &visited){
-        visited[node->val] = true;
+    Node* dfs_return_clone_of_node(Node *node, unordered_map<Node*, Node*> &visited){
+        if(node==NULL)
+            return NULL;
+        
+        if(visited.find(node) == visited.end()){
+            Node* copy_node = (Node*)malloc(sizeof(Node*));
+            copy_node->val = node->val;
+            visited[node] = copy_node;
 
-        for(int i=0; i<node->neighbors.size(); i++){
-            int curr_neighbour = (*(node->neighbors[i])).val;
-            if(visited[curr_neighbour] == false){
-                dfs(node->neighbors[i], result, visited);
+            for(auto neighbour: node->neighbors){
+                visited[node]->neighbors.push_back(dfs_return_clone_of_node(neighbour, visited));
             }
         }
+        return visited[node];
     }
 
     Node* cloneGraph(Node* node) {
-        Node *result_node_ptr;
-        map<int, bool> &visited;
+        unordered_map<Node*, Node*> visited;
 
-        dfs(node, result_node_ptr, visited);
+        Node *result_start_node = dfs_return_clone_of_node(node, visited);
+        return result_start_node;
 
     }
 };
