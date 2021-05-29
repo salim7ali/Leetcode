@@ -25,6 +25,7 @@ public:
         // create trie nodes and connections for string chars
         TrieNode* ptr_node;
         for(int string_index=0; string_index<strs.size(); string_index++){
+            root->word_count += 1;
             ptr_node = root;
             for(int j=0; j<strs[string_index].length(); j++){
                 char character = strs[string_index][j];
@@ -37,8 +38,6 @@ public:
                     child_node->word_count += 1;
                     ptr_node->children[char_index] = child_node;
 
-                    if(ptr_node == root)
-                        root->word_count += 1;
                     ptr_node = ptr_node->children[char_index];
                 }else{
                     ptr_node = ptr_node->children[char_index];
@@ -49,11 +48,11 @@ public:
 
         // Traverse the result
         string result = "";
-        if(root->word_count >1 || root->word_count==0)
+        if(root->word_count==0)
             return result;
         else{
+            int start_word_count = root->word_count;
             ptr_node = findFirstNonNullChildNode(root);
-            int start_word_count = ptr_node->word_count;
             while(ptr_node!=NULL && start_word_count == ptr_node->word_count){
                 result.push_back(ptr_node->val);
                 ptr_node = findFirstNonNullChildNode(ptr_node);
@@ -80,4 +79,8 @@ int main(){
     vector<string> strs4 = {"a"};
     Solution obj4;
     cout<<obj4.longestCommonPrefix(strs4)<<"\n";
+
+    vector<string> strs5 = {"", "b"};
+    Solution obj5;
+    cout<<obj5.longestCommonPrefix(strs5)<<"\n";
 }
