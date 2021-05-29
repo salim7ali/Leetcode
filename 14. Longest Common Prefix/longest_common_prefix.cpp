@@ -12,7 +12,7 @@ class Solution {
 public:
     TrieNode* root = new TrieNode();
 
-    TrieNode* findNonNullNode(TrieNode *node){
+    TrieNode* findFirstNonNullChildNode(TrieNode *node){
         for(int i=0; i<26; i++){
             if(node->children[i] != NULL)
                 return node->children[i];
@@ -52,24 +52,24 @@ public:
         if(root->word_count >1 || root->word_count==0)
             return result;
         else{
-            ptr_node = findNonNullNode(root);
-            ptr_node = root->children[0];
+            ptr_node = findFirstNonNullChildNode(root);
             int start_word_count = ptr_node->word_count;
             while(start_word_count == ptr_node->word_count){
-            
+                result.push_back(ptr_node->val);
+                ptr_node = findFirstNonNullChildNode(ptr_node);
             }
             // cout<<"WC="<<root->children[0]->val<<" "<<root->children[0]->word_count;
         }
-
-
-        
+        return result;        
     }
 };
 
 int main(){
-    vector<string> strs = {"apple", "apps", "ape"};
-    // vector<string> strs = {"flower", "flow", "flight"};
-    Solution obj;
-    obj.longestCommonPrefix(strs);
+    vector<string> strs1 = {"apple", "apps", "ape"};
+    Solution obj1;
+    cout<<obj1.longestCommonPrefix(strs1)<<"\n";
     
+    vector<string> strs2 = {"flower", "flow", "floight"};
+    Solution obj2;
+    cout<<obj2.longestCommonPrefix(strs2)<<"\n";
 }
