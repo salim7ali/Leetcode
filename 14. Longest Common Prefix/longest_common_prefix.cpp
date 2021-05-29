@@ -48,13 +48,13 @@ public:
         }
 
         // Traverse the result
-        string result;
+        string result = "";
         if(root->word_count >1 || root->word_count==0)
             return result;
         else{
             ptr_node = findFirstNonNullChildNode(root);
             int start_word_count = ptr_node->word_count;
-            while(start_word_count == ptr_node->word_count){
+            while(ptr_node!=NULL && start_word_count == ptr_node->word_count){
                 result.push_back(ptr_node->val);
                 ptr_node = findFirstNonNullChildNode(ptr_node);
             }
@@ -72,4 +72,12 @@ int main(){
     vector<string> strs2 = {"flower", "flow", "floight"};
     Solution obj2;
     cout<<obj2.longestCommonPrefix(strs2)<<"\n";
+    
+    vector<string> strs3 = {"dog", "racecar", "car"};
+    Solution obj3;
+    cout<<obj3.longestCommonPrefix(strs3)<<"\n";
+
+    vector<string> strs4 = {"a"};
+    Solution obj4;
+    cout<<obj4.longestCommonPrefix(strs4)<<"\n";
 }
