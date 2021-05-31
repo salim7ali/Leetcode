@@ -43,10 +43,12 @@ public:
         for(int i=1; i<visited_level.size(); i++){
             if(visited_level[i] == false)
                 break;
+            right_view_result[i-1] = right_view_result[i];
             no_of_levels += 1;
         }
 
-        right_view_result.erase(right_view_result.begin()+no_of_levels+1, right_view_result.end());
+        right_view_result.erase(right_view_result.begin()+no_of_levels, right_view_result.end());
+        // right_view_result.erase(right_view_result.begin(), right_view_result.begin());
 
         return right_view_result;
     }
