@@ -24,7 +24,13 @@ public:
                 int without, with;
                 if(coins[curr_coin_index-1] <= curr_amount){
                     without = dp[curr_coin_index-1][curr_amount];
-                    with = 1 + dp[ curr_coin_index ][ curr_amount-coins[curr_coin_index-1] ];
+
+                    // handling int overflow case
+                    if(dp[ curr_coin_index ][ curr_amount-coins[curr_coin_index-1] ] == INT_MAX)
+                        with = INT_MAX;
+                    else
+                        with = 1 + dp[ curr_coin_index ][ curr_amount-coins[curr_coin_index-1] ];
+
                     dp[curr_coin_index][curr_amount] = min(without, with);
                 }else{
                     without = dp[curr_coin_index-1][curr_amount];
