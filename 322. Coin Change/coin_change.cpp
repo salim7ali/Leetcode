@@ -21,15 +21,19 @@ public:
         for(int curr_coin_index=1; curr_coin_index<dp.size(); curr_coin_index++){
             for(int curr_amount=1; curr_amount<dp[0].size(); curr_amount++){
 
+                int without, with;
                 if(coins[curr_coin_index-1] <= curr_amount){
-                    //                                   min(without,with)
-                    dp[curr_coin_index][curr_amount] = min(dp[curr_coin_index-1][curr_amount], 
-                    1 + dp[curr_amount-coins[curr_coin_index-1]][curr_coin_index]);
+                    without = dp[curr_coin_index-1][curr_amount];
+                    with = 1 + dp[ curr_coin_index ][ curr_amount-coins[curr_coin_index-1] ];
+                    dp[curr_coin_index][curr_amount] = min(without, with);
                 }else{
-                    dp[curr_coin_index][curr_amount] = dp[curr_coin_index-1][curr_amount];
+                    without = dp[curr_coin_index-1][curr_amount];
+                    dp[curr_coin_index][curr_amount] = without;
                 }
             }
         }
+        if(dp[dp.size()-1][dp[0].size()-1] == INT_MAX)
+            return -1;
         return dp[dp.size()-1][dp[0].size()-1];
     }
 };
@@ -39,4 +43,21 @@ int main(){
     vector<int> coins = {1,2,5};
     Solution obj1;
     cout<<obj1.coinChange(coins, 11)<<"\n";
+
+    coins = {2};
+    Solution obj2;
+    cout<<obj2.coinChange(coins, 3)<<"\n";
+
+    coins = {1};
+    Solution obj3;
+    cout<<obj3.coinChange(coins, 0)<<"\n";
+
+    coins = {1};
+    Solution obj4;
+    cout<<obj4.coinChange(coins, 1)<<"\n";
+
+    coins = {1};
+    Solution obj5;
+    cout<<obj5.coinChange(coins, 2)<<"\n";
+    
 }
