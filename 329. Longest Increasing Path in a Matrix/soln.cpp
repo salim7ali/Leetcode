@@ -20,17 +20,21 @@ public:
             int neighRow = i+neighbor[k].first;
             int neighCol = j+neighbor[k].second;
             
-            if(isValid(neighRow, neighCol, matrix) == false)
+            // handles case when child looking at parent for traversal as well  
+            if((isValid(neighRow, neighCol, matrix) == false) || (matrix[neighRow][neighCol]<=matrix[i][j]))
                 continue;
             
-            if(dp[neighRow][neighCol] != INT_MIN  && (matrix[neighRow][neighCol]>matrix[i][j])){ // visited neighbor case
+            if(dp[neighRow][neighCol] != INT_MIN){ // visited neighbor case
                 dp[i][j] = max(dp[i][j], 1+dp[neighRow][neighCol]);
                 neighborFound = true;   
-            }else if((dp[neighRow][neighCol] == INT_MIN) && (matrix[neighRow][neighCol]>matrix[i][j])){ //not visited 
+            }else if(dp[neighRow][neighCol] == INT_MIN){ //not visited 
                 dfs(matrix, dp, maxPathLength, neighRow, neighCol);
+                // update current as unvisited node/neighbor is resolved for dp
+                dp[i][j] =  max(dp[i][j], 1+dp[neighRow][neighCol]);
                 neighborFound = true;
             }
 
+            // update after visiting every neighbor
             maxPathLength = max(maxPathLength, dp[i][j]);
         }
         if(neighborFound == false)
