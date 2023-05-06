@@ -29,10 +29,28 @@ public:
         return mid;
     }
 
+    int myBinarySearchRetIndex(vector<int> &nums, int element, int l, int r){
+
+        while (l<r)
+        {
+            int mid = l+floor((r-l)/2);
+            if(nums[mid]==element)
+                return mid;
+            else if(element<nums[mid]){
+                r = mid-1;
+            }else{
+                l = mid+1;
+            }
+        }
+        return -1;
+    }
+
     int search(vector<int>& nums, int target) {
         int pivot = getPivotIndex(nums);
         
-        // no pivot
-        // if(pivot == -1)
+        if(target<=nums[pivot])
+            return myBinarySearchRetIndex(nums, target, 0, pivot);
+        else
+            return myBinarySearchRetIndex(nums, target, pivot+1, nums.size()-1);
     }
 };
