@@ -31,7 +31,7 @@ public:
 
     int myBinarySearchRetIndex(vector<int> &nums, int element, int l, int r){
 
-        while (l<r)
+        while (l<=r)
         {
             int mid = l+floor((r-l)/2);
             if(nums[mid]==element)
@@ -48,7 +48,7 @@ public:
     int search(vector<int>& nums, int target) {
         int pivot = getPivotIndex(nums);
         
-        if(target<=nums[pivot])
+        if((nums[0]<=target) && (target<=nums[pivot]))
             return myBinarySearchRetIndex(nums, target, 0, pivot);
         else
             return myBinarySearchRetIndex(nums, target, pivot+1, nums.size()-1);
