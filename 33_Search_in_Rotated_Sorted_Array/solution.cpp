@@ -8,19 +8,21 @@ public:
         int right = nums.size()-1;
         int mid = floor((right-left)/2); 
 
-        // no pivot
-        if(nums[left]<nums[mid] && nums[mid]<nums[right])
-            return -1;
         // has pivot
-        while (left<right && left!=mid)
+        while (left<right)
         {
+            if(nums[left]<nums[mid] && nums[mid]<nums[right])
+                return right;
+            // pivot found
+            if(nums[mid-1]<nums[mid] && nums[mid]>nums[mid+1])
+                return mid;
             // check right
             if(nums[left]<nums[mid] && nums[mid]>nums[right]){
-                left = mid;
+                left = mid+1;
                 mid = left + floor((right-left)/2); 
             // check left 
             }else if(nums[left]>nums[mid] && nums[mid]<nums[right]){
-                right = mid;
+                right = mid-1;
                 mid =  left + floor((right-left)/2); 
             }
         }
@@ -28,6 +30,9 @@ public:
     }
 
     int search(vector<int>& nums, int target) {
-        cout<<getPivotIndex(nums);
+        int pivot = getPivotIndex(nums);
+        
+        // no pivot
+        // if(pivot == -1)
     }
 };
