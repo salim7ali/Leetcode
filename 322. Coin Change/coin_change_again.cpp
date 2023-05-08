@@ -16,12 +16,22 @@ public:
         int coinsOnRejectingCurrCoin;
         for(int currCoinIndex=1; currCoinIndex<dp.size(); currCoinIndex++){
             for(int currAmount=1; currAmount<dp[0].size(); currAmount++){
-                // coins[currCoinIndex-1] as coins vector is indexed 0, 1, 2..
-                //                                      [1, 2, 5..]
-                coinsOnTakingCurrCoin = 1 + dp[currCoinIndex][currAmount - coins[currCoinIndex-1]];
                 coinsOnRejectingCurrCoin = dp[currCoinIndex-1][currAmount];
-                
-                dp[currCoinIndex][currAmount] = min(coinsOnRejectingCurrCoin, coinsOnTakingCurrCoin);
+                // current coin can't be larger than currAmount which we are targeting at the moment
+                if(coins[currCoinIndex-1]<=currAmount){
+
+                    // coins[currCoinIndex-1] as coins vector is indexed 0, 1, 2..
+                                //                                      [1, 2, 5..]
+                    // handling INT_MAX+1 overflow case for int. Throws RUNTIME ERRORS
+                    if(dp[currCoinIndex][currAmount - coins[currCoinIndex-1]] == INT_MAX)
+                        coinsOnTakingCurrCoin = INT_MAX;
+                    else
+                        coinsOnTakingCurrCoin = 1 + dp[currCoinIndex][currAmount - coins[currCoinIndex-1]];
+                    
+                    dp[currCoinIndex][currAmount] = min(coinsOnRejectingCurrCoin, coinsOnTakingCurrCoin);
+                }else{
+                    dp[currCoinIndex][currAmount] = coinsOnRejectingCurrCoin;    
+                }
             }
         }
 
