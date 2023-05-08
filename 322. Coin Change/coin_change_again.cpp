@@ -8,26 +8,29 @@ public:
         vector<vector<int>> dp(coins.size()+1, vector<int> (amount+1, INT_MAX));
 
         //  amount=0 column needs 0 coins 
-        for(int i=0; i<dp.size(); i++){ 
-            dp[i][0] = 0;
+        for(int row=0; row<dp.size(); row++){ 
+            dp[row][0] = 0;
         }
 
-        for(int i=1; i<dp.size(); i++){
-            for(int j=1; j<dp[0].size(); j++){
-                // coins[i-1] as coins vector is indexed 0, 1, 2..
+        int coinsOnTakingCurrCoin;
+        int coinsOnRejectingCurrCoin;
+        for(int currCoinIndex=1; currCoinIndex<dp.size(); currCoinIndex++){
+            for(int currAmount=1; currAmount<dp[0].size(); currAmount++){
+                // coins[currCoinIndex-1] as coins vector is indexed 0, 1, 2..
                 //                                      [1, 2, 5..]
-                int coinsOnTakingCurrCoin = 1 + dp[i][j - coins[i-1]];
-                int coinsOnRejectingCurrCoin = dp[i-1][j];
+                coinsOnTakingCurrCoin = 1 + dp[currCoinIndex][currAmount - coins[currCoinIndex-1]];
+                coinsOnRejectingCurrCoin = dp[currCoinIndex-1][currAmount];
                 
-                dp[i][j] = min(coinsOnRejectingCurrCoin, coinsOnTakingCurrCoin);
+                dp[currCoinIndex][currAmount] = min(coinsOnRejectingCurrCoin, coinsOnTakingCurrCoin);
             }
         }
 
-        if(dp[dp.size()-1][dp[0].size()-1] >=0){
-            return dp[dp.size()-1][dp[0].size()-1];
+        int minCoins = dp[dp.size()-1][dp[0].size()-1];
+        if(minCoins == INT_MAX){
+            return -1;
         }
-        
-        return -1;
+
+        return minCoins;
 
     }
 };
