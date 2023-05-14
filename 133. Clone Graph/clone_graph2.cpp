@@ -25,6 +25,8 @@ class Solution {
 public:
     Node* graphCloner(Node* currOrigNode, map<Node*, Node*> &oldToNewMap){
         
+        if(currOrigNode == NULL)
+            return NULL;
         Node* currDupNode = new Node(currOrigNode->val);
         oldToNewMap[currOrigNode] = currDupNode;
 
