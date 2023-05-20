@@ -1,6 +1,7 @@
 class Solution {
 public:
     void minCostFind(vector<int> &cost, vector<int> &dp, int currIndex){
+        // needs fixing
         if(currIndex ==0 || currIndex ==1){
             dp[currIndex] = cost[currIndex];
             return;
